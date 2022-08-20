@@ -1,28 +1,30 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3" aria-label="Navbar">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="<?php echo URL_ROOT; ?>"><?php echo SITE_NAME; ?></a>
-    <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#links" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3" aria-label="navbar">
+  <div class="container">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="<?php echo URL_ROOT; ?>"><?php echo SITE_NAME; ?></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navLinks" aria-controls="navLinks" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <div class="navbar-collapse collapse" id="links">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="<?php echo URL_ROOT; ?>">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<?php echo URL_ROOT; ?>/pages/about">About</a>
-        </li>
-      </ul>
+      <div class="navbar-collapse collapse" id="navLinks">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="<?php echo URL_ROOT; ?>">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo URL_ROOT; ?>/pages/about">About</a>
+          </li>
+        </ul>
 
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="<?php echo URL_ROOT; ?>/users/register">Register</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<?php echo URL_ROOT; ?>/users/login">Login</a>
-        </li>
-      </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="<?php echo URL_ROOT; ?>/users/register">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo URL_ROOT; ?>/users/login">Login</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>
