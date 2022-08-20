@@ -9,7 +9,7 @@ class Pages extends Controller
   {
 
     $data = [
-      'title' => 'JerMVC!'
+      'title' => 'SharePosts'
     ];
     $this->view('pages/index', $data);
   }
