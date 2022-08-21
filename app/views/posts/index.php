@@ -1,4 +1,5 @@
 <?php require APP_ROOT . '/views/inc/header.php'; ?>
+<?php flash('post_message'); ?>
 <div class="row align-items-center mb-3">
   <div class="col-6">
     <h1>Posts</h1>
@@ -15,7 +16,7 @@
       <?php echo $post->title; ?>
     </h4>
     <div class="bg-light p-2 mb-3">
-      Written by <?php echo $post->name; ?> on <?php echo $post->post_created; ?>
+      Written by <?php echo $post->name; ?> on <?php echo DateTime::createFromFormat('Y-m-d H:i:s', $post->post_created)->format('m/d/Y h:i A'); ?>
     </div>
     <p class="card-text">
       <?php echo $post->body; ?>
