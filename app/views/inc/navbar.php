@@ -19,7 +19,7 @@
         <ul class="navbar-nav ml-auto">
           <?php if (isset($_SESSION['user_id'])) : ?>
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="<?php echo URL_ROOT; ?>/users/logout">Logout</a>
+              <a class="nav-link" aria-current="page" href="<?php echo URL_ROOT; ?>/users/logout">Logout <?php echo $_SESSION['user_name']; ?></a>
             </li>
           <?php else : ?>
             <li class="nav-item">
