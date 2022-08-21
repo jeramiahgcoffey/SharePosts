@@ -7,6 +7,9 @@ class Pages extends Controller
 
   public function index()
   {
+    if (is_logged_in()) {
+      redirect('posts');
+    }
 
     $data = [
       'title' => 'SharePosts',
