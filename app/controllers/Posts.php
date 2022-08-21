@@ -3,7 +3,10 @@ class Posts extends Controller
 {
   public function __construct()
   {
-    !is_logged_in() && redirect('users/login');
+    if (!is_logged_in()) {
+      redirect('users/login');
+      return;
+    }
 
     $this->post_model = $this->model('Post');
     $this->user_model = $this->model('User');
@@ -52,6 +55,7 @@ class Posts extends Controller
         if ($this->post_model->add_post($data)) {
           flash('post_message', 'Post added successfully');
           redirect('posts');
+          return;
         } else {
           die('Something went wrong');
         }
@@ -95,6 +99,7 @@ class Posts extends Controller
         if ($this->post_model->update_post($data)) {
           flash('post_message', 'Post edited successfully');
           redirect('posts');
+          return;
         } else {
           die('Something went wrong');
         }
@@ -116,6 +121,27 @@ class Posts extends Controller
       $data['body'] = trim($post->body);
 
       $this->view('posts/edit', $data);
+    }
+  }
+
+  public function delete($id)
+  {
+    // Get existing post from model
+    $post = $this->post_model->get_post($id);
+
+    // Check for owner  
+    if ($post->user_id != $_SESSION['user_id'] || !is_logged_in()) {
+      redirect('posts');
+      return;
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] != 'POST') redirect('posts');
+
+    if ($this->post_model->delete_post($id)) {
+      flash('post_message', 'Post deleted successfully');
+      redirect('posts');
+    } else {
+      die('Something went wrong');
     }
   }
 
