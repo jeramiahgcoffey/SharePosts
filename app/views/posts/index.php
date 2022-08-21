@@ -16,7 +16,7 @@
       <?php echo $post->title; ?>
     </h4>
     <div class="bg-light p-2 mb-3">
-      Written by <?php echo $post->name; ?> on <?php echo DateTime::createFromFormat('Y-m-d H:i:s', $post->post_created)->format('m/d/Y h:i A'); ?>
+      Written by <?php echo $post->name; ?> on <?php echo timestamp($post->post_created); ?>
     </div>
     <p class="card-text">
       <?php echo $post->body; ?>

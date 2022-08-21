@@ -6,6 +6,7 @@ class Posts extends Controller
     !is_logged_in() && redirect('users/login');
 
     $this->post_model = $this->model('Post');
+    $this->user_model = $this->model('User');
   }
 
   public function index()
@@ -61,5 +62,73 @@ class Posts extends Controller
     } else {
       $this->view('posts/add', $data);
     }
+  }
+
+  public function edit($id)
+  {
+    $data = [
+      'id' => $id,
+      'title' => '',
+      'body' => '',
+      'title_error' => '',
+      'body_error' => ''
+    ];
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+
+      $data['title'] = trim($_POST['title']);
+      $data['body'] = trim($_POST['body']);
+
+      // Validate data
+      if (empty($data['title'])) {
+        $data['title_error'] = 'Please enter title';
+      }
+
+      if (empty($data['body'])) {
+        $data['body_error'] = 'Please enter body text';
+      }
+
+      // Confirm no errors
+      if (empty($data['title_error']) && empty($data['body_error'])) {
+        // Validated
+        if ($this->post_model->update_post($data)) {
+          flash('post_message', 'Post edited successfully');
+          redirect('posts');
+        } else {
+          die('Something went wrong');
+        }
+      } else {
+        // Load view with error
+        $this->view('posts/edit', $data);
+      }
+    } else {
+      // Get existing post from model
+      $post = $this->post_model->get_post($id);
+
+      // Check for owner  
+      if ($post->user_id != $_SESSION['user_id']) {
+        redirect('posts');
+      }
+
+      $data['id'] = $id;
+      $data['title'] = $post->title;
+      $data['body'] = trim($post->body);
+
+      $this->view('posts/edit', $data);
+    }
+  }
+
+  public function show($id)
+  {
+    $post = $this->post_model->get_post($id);
+    $user = $this->user_model->get_user_by_id($post->user_id);
+
+    $data = [
+      'post' => $post,
+      'user' => $user
+    ];
+
+    $this->view('posts/show', $data);
   }
 }

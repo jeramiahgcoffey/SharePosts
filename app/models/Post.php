@@ -23,6 +23,14 @@ class Post
     return $this->db->result_set();
   }
 
+  public function get_post($id)
+  {
+    $this->db->query("SELECT * FROM posts WHERE id = :id");
+    $this->db->bind(':id', $id);
+
+    return $this->db->single();
+  }
+
   public function add_post($data)
   {
     $this->db->query(
@@ -31,6 +39,25 @@ class Post
     );
 
     $this->db->bind(':user_id', $data['user_id']);
+    $this->db->bind(':title', $data['title']);
+    $this->db->bind(':body', $data['body']);
+
+    if ($this->db->execute()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public function update_post($data)
+  {
+    $this->db->query(
+      'UPDATE posts
+      SET title = :title, body = :body
+      WHERE id= :id'
+    );
+
+    $this->db->bind(':id', $data['id']);
     $this->db->bind(':title', $data['title']);
     $this->db->bind(':body', $data['body']);
 
